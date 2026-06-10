@@ -1,0 +1,211 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+:root {
+    --green: rgb(2, 255, 2);
+    --pink: rgb(255, 14, 203);
+    --hotpink: #bf01bf;
+    --light-blue: #24d7ce;
+    --yellow: #d7d94a;
+    --cobolt: #020dd4;
+    --red: #ff0000;
+    --light-green: #7ceeac;
+    --black: #000000;
+    --main-bg-color: var(--black);
+    --twine-bg-color: var(--black);
+    --accent-color-primary: var(--green);
+    --accent-color-secondary: var(--pink);
+    --accent-color-shadow: var(--powder-blush);
+    --text-color: var(--green);
+    --button-bg: var(--pink);
+    --button-active: var(--powder-blush);
+    --button-secondary-bg: var(--tropical-teal);
+    --button-secondary-active: var(--ash-grey);
+    --font-headings:  "Courier", sans-serif;
+    --font-body: "Courier", sans-serif;
+    --padding: 2rem;
+    --padding-mob: 3rem;
+  
+    --icon-size: 3rem;
+  }
+  
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    grid-gap: 2rem;
+    font-size: 10px;
+    font-size: 1.6rem;
+    font-weight: 600;
+    background-color: var(--main-bg-color);
+    overflow: scroll;
+    padding-top: 0;
+    font-family: var(--font-body);
+    color: var(--text-color);
+    text-align: left;
+  }
+
+body.lightblue{
+    background-color: var(--light-blue);
+    color: var(--cobolt)
+}
+
+body.lightblue footer {
+    background-color: var(--light-blue);
+    color: var(--cobolt)
+}
+
+/* HEADER  */
+header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    padding: var(--padding);
+    /* background-color: #1c8f93; */
+    background-color: transparent;
+  }
+  
+  
+  main {
+    /* display: none !important; */
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 1080px;
+    margin: auto;
+    padding: var(--padding);
+    min-height: 80vh;
+    margin-block-end: 8rem;
+  }
+  .main-container.text {
+    width: 60%;
+  }
+  
+  main.landing {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-position: 0% 22%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 100vh;
+    max-width: 100%;
+    gap: 4rem;
+  }
+  
+  section {
+    margin-block-end: 2rem;
+    width: 100%;
+  }
+
+/* FOOTER  */
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: fixed;
+    bottom: 0;
+    padding: 1rem var(--padding);
+    width: 100%;
+    background-color: var(--main-bg-color);
+    z-index: 9;
+  }
+  
+/* TYPOGRAPHY  */
+  h1,
+  h2,
+  h3,
+  h4,
+  h6 {
+    font-family: var(--font-headings);
+    color: var(--accent-color-primary);
+    text-align: left;
+    /* text-transform: uppercase; */
+    margin-block-end: 0;
+    font-weight: 600;
+  }
+  
+  h1 {
+    color: var(--accent-color-primary);
+    font-size: 4rem;
+  }
+  
+  h2 {
+    font-size: 4rem;
+  }
+  
+  h3 {
+    font-size: 3.5rem;
+    /* color: var(--color-pink); */
+  }
+  
+  h4 {
+    font-size: 3rem;
+    /* color: var(--color-pink); */
+  }
+  
+  p, ul {
+    font-size: 2.2rem;
+  }
+  
+  .passage ol, .passage ul {
+    margin-left: 0;
+    padding-left: 0;
+  }
+  
+  strong {
+    font-weight: 600;
+    color: var(--accent-color-primary);
+  }
+  
+  a.highlighted {
+    font-weight: 600;
+    color: var(--light-coral);
+  }
+  
+  button:hover, html[data-outlines] button:focus, 
+  a:active,
+  a:focus,
+  a:hover {
+    color: #e8d7a4;
+    background-color: var(--light-coral);
+  }
+
+p.instruction{
+    background-color: var(--yellow);
+    width: fit-content;
+    line-height: normal;
+}
+
+p.satchel-title{
+    background-color: white;
+    width: fit-content;
+    line-height: normal;
+}
+
+  /* BUTTONS  */
+  /* BUTTONS */
+button,
+.inline-btn-wrapper > a,
+input[type="submit"] {
+  font-weight: 600;
+  padding: 8px;
+  background-color: var(--accent-color-secondary);
+  border: 2px solid white;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  font-size: 1.6rem;
+  /* color: #000; */
+  /* border-radius: 4px; */
+}
+
+
+  
+  .hide {
+    display: none;
+  }

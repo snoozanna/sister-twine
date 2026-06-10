@@ -1,0 +1,303 @@
+:: StoryTitle
+SISTER
+
+
+:: StoryData
+{
+	"ifid": "67EBDD11-6487-4483-9919-D4CE04D26676",
+	"format": "SugarCube",
+	"format-version": "2.36.1",
+	"start": "landing",
+	"zoom": 0.6
+}
+
+
+:: Story Stylesheet [stylesheet]
+
+@import url("styles/generics.css");
+@import url("styles/removetwinestyles.css");
+@import url("styles/main.css");
+
+
+
+:: Story JavaScript [script]
+$('#ui-bar').remove();
+$(document.head).find('#style-ui-bar').remove();
+
+setup.chooseStoryAudio = () => {
+
+  const audio = document.getElementById("audioPlayer");
+
+  if (!audio) {
+    console.error("Audio element not found.");
+    return;
+  }
+
+  const data = State.variables.currentAudio;
+
+  if (!data) {
+    console.warn("No currentAudio set.");
+    return;
+  }
+
+  // Reset audio
+  audio.pause();
+  audio.currentTime = 0;
+
+  // ✅ Make this an ARRAY (even for one file)
+  const audioFiles = [
+    `assets/audio/${data.theme}/${data.audioSrc}.mp3`
+  ];
+
+  console.log("audioFiles", audioFiles);
+
+  let currentTrack = 0;
+
+  function playNext() {
+    if (currentTrack < audioFiles.length) {
+      audio.src = audioFiles[currentTrack];
+      console.log("playing audio", audio.src);
+
+      audio.play().catch(err => {
+        console.error("Audio play failed:", err);
+      });
+
+      currentTrack++;
+    }
+  }
+
+  // ✅ Prevent stacking
+  audio.onended = playNext;
+
+  if (audioFiles.length > 0) {
+    playNext();
+  }
+};
+
+
+
+
+:: StoryInit {"position":"100,100","size":"100,100"}
+
+<<set $location = "forest">>
+
+<<set $world = {
+  forest: {
+    name: "Dark Forest",
+    desc: "Trees crowd around you. Paths lead deeper into darkness.",
+    exits: {
+      north: "cave",
+      east: "village"
+    }
+  },
+
+  cave: {
+    name: "Echoing Cave",
+    desc: "Cold air flows from within. The darkness swallows sound.",
+    exits: {
+      south: "forest"
+    },
+    locked: false
+  },
+
+  village: {
+    name: "Abandoned Village",
+    desc: "Empty houses line a silent road. Something feels wrong here.",
+    exits: {
+      west: "forest"
+    }
+  }
+}>>
+
+
+:: header [nobr]
+<header>
+Head
+</header>
+
+
+:: footer [nobr]
+<footer>
+Foot
+</footer>
+
+:: test-content [nobr]
+
+
+<<timed 0.1s>>
+ <<replace "#mount">>
+    <<type 60ms>>
+      <p>  Hello</p>
+    <</type>>
+    <</replace>>
+<</timed>>
+
+<<timed 3s>>
+ <<append "#mount">>
+    <<type 60ms>>
+        <p>This is a test</p>
+    <</type>>
+    <</append>>
+<</timed>>
+
+<<timed 6s>>
+ <<append "#mount">>
+    <<type 60ms>>
+        <p>And another one</p>
+    <</type>>
+    <</append>>
+<</timed>>
+
+<<timed 8s>>
+ <<append "#mount">>
+    <<type 60ms>>
+       <p>
+         <<button "Next">>
+         <<goto $nextpass>>
+         <</button>>
+       </p>
+    <</type>>
+    <</append>>
+<</timed>>
+
+:: landing [nobr]
+<<set $prevpass to "">>
+<<set $pass to "landing">>
+<<set $nextpass to "option1">>
+
+<<include "header">>
+<main>
+<p class="instruction">Ready when you are...</p>
+<div id="mount"></div>
+<<include "test-content">>
+</main>
+<<include "footer">>
+
+
+:: option1 [nobr]
+<<set $prevpass to "landing">>
+<<set $pass to "option1">>
+<<set $nextpass to "option2">>
+<<addclass "body" "lightblue">>
+<<include "header">>
+<main>
+<p class="instruction">Ready when you are...</p>
+<div id="mount"></div>
+<<include "test-content">>
+</main>
+<<include "footer">>
+
+:: option2 [nobr]
+<<set $prevpass to "option1">>
+<<set $pass to "option2">>
+<<set $nextpass to "Room">>
+<<addclass "body" "lightblue">>
+<<include "header">>
+<main>
+<p class="satchel-title">You can see: </p>
+<div id="mount"></div>
+<<include "test-content">>
+</main>
+<<include "footer">>
+
+:: Room [nobr]
+<<if $world.hasOwnProperty($location)>>
+  <<set _room = $world[$location]>>
+<<else>>
+  <<set _room = {
+    name: "Unknown",
+    desc: "This place does not exist.",
+    exits: {}
+  }>>
+<</if>>
+
+<main>
+<h2><<= _room.name>></h2>
+<p><<= _room.desc>></p>
+
+<hr>
+
+<b>Exits:</b><br>
+
+<<for _dir, _dest range _room.exits>>
+
+  <<set _target = $world[_dest]>>
+
+  <<if _target.locked>>
+    <<print _dir>> — (locked)<br>
+  <<else>>
+    <<link _dir>>
+      <<set $location = _dest>>
+      <<goto "Room">>
+    <</link>><br>
+  <</if>>
+
+<</for>>
+
+<hr>
+
+<form>
+  <<textbox "$command" "command">>
+</form>
+
+<<button "Enter">>
+  <<set _cmd = $command.toLowerCase()>>
+
+  <<if _cmd is "look">>
+    <<goto "Room">>
+
+  <<elseif _cmd is "north" or _cmd is "n">>
+    <<set _dir = "north">>
+    <<if $world[$location].exits[_dir]>>
+      <<set $location = $world[$location].exits[_dir]>>
+    <</if>>
+    <<goto "Room">>
+
+  <<elseif _cmd is "south" or _cmd is "s">>
+    <<set _dir = "south">>
+    <<if $world[$location].exits[_dir]>>
+      <<set $location = $world[$location].exits[_dir]>>
+    <</if>>
+    <<goto "Room">>
+
+  <<elseif _cmd is "east" or _cmd is "e">>
+    <<set _dir = "east">>
+    <<if $world[$location].exits[_dir]>>
+      <<set $location = $world[$location].exits[_dir]>>
+    <</if>>
+    <<goto "Room">>
+
+  <<elseif _cmd is "west" or _cmd is "w">>
+    <<set _dir = "west">>
+    <<if $world[$location].exits[_dir]>>
+      <<set $location = $world[$location].exits[_dir]>>
+    <</if>>
+    <<goto "Room">>
+
+  <<else>>
+    You can't do that.
+  <</if>>
+<</button>>
+
+<b>Commands:</b><br>
+<<link "Look">><<goto "Room">><</link>> |
+<<link "Map">><<goto "Map">><</link>>
+</main>
+
+:: Map [nobr]
+<main>
+    <h3>Map</h3>
+    
+    You are currently in: <b><<= $location>></b><br><br>
+    
+    <<for _room, _data range $world>>
+      <<if _room is $location>>
+        ▶ <<=_data.name>><br>
+      <<else>>
+        · <<=_data.name>><br>
+      <</if>>
+    <</for>>
+    
+    <br>
+    <<link "Back">><<goto "Room">><</link>>
+</main>
