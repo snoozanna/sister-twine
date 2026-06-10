@@ -109,86 +109,129 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 @import url("styles/main.css");</style><script role="script" id="twine-user-script" type="text/twine-javascript">$('#ui-bar').remove();
 $(document.head).find('#style-ui-bar').remove();
 
-setup.chooseStoryAudio = () => {
+// setup.chooseStoryAudio = () => {
 
-  const audio = document.getElementById("audioPlayer");
+//   const audio = document.getElementById("audioPlayer");
 
-  if (!audio) {
-    console.error("Audio element not found.");
-    return;
-  }
+//   if (!audio) {
+//     console.error("Audio element not found.");
+//     return;
+//   }
 
-  const data = State.variables.currentAudio;
+//   const data = State.variables.currentAudio;
 
-  if (!data) {
-    console.warn("No currentAudio set.");
-    return;
-  }
+//   if (!data) {
+//     console.warn("No currentAudio set.");
+//     return;
+//   }
 
-  // Reset audio
-  audio.pause();
-  audio.currentTime = 0;
+//   // Reset audio
+//   audio.pause();
+//   audio.currentTime = 0;
 
-  // ✅ Make this an ARRAY (even for one file)
-  const audioFiles = [
-    `assets/audio/${data.theme}/${data.audioSrc}.mp3`
-  ];
+//   // ✅ Make this an ARRAY (even for one file)
+//   const audioFiles = [
+//     `assets/audio/${data.theme}/${data.audioSrc}.mp3`
+//   ];
 
-  console.log("audioFiles", audioFiles);
+//   console.log("audioFiles", audioFiles);
 
-  let currentTrack = 0;
+//   let currentTrack = 0;
 
-  function playNext() {
-    if (currentTrack < audioFiles.length) {
-      audio.src = audioFiles[currentTrack];
-      console.log("playing audio", audio.src);
+//   function playNext() {
+//     if (currentTrack < audioFiles.length) {
+//       audio.src = audioFiles[currentTrack];
+//       console.log("playing audio", audio.src);
 
-      audio.play().catch(err => {
-        console.error("Audio play failed:", err);
-      });
+//       audio.play().catch(err => {
+//         console.error("Audio play failed:", err);
+//       });
 
-      currentTrack++;
-    }
-  }
+//       currentTrack++;
+//     }
+//   }
 
-  // ✅ Prevent stacking
-  audio.onended = playNext;
+//   // ✅ Prevent stacking
+//   audio.onended = playNext;
 
-  if (audioFiles.length > 0) {
-    playNext();
-  }
-};</script><tw-passagedata pid="1" name="StoryInit" tags="" position="100,100" size="100,100">&lt;&lt;set $location = &quot;forest&quot;&gt;&gt;
+//   if (audioFiles.length > 0) {
+//     playNext();
+//   }
+// };</script><tw-passagedata pid="1" name="StoryInit" tags="" position="100,100" size="100,100">&lt;&lt;set $location = &quot;sisters&quot;&gt;&gt;
 
 &lt;&lt;set $world = {
-  forest: {
-    name: &quot;Dark Forest&quot;,
-    desc: &quot;Trees crowd around you. Paths lead deeper into darkness.&quot;,
+  sisters: {
+    name: &quot;Silver Sisters&quot;,
+    desc: &quot;The strangeness of the sisters. Who were they? How can we know them better?&quot;,
     exits: {
-      north: &quot;cave&quot;,
-      east: &quot;village&quot;
-    }
+      north: &quot;truth&quot;,
+      east: &quot;art&quot;,
+      south: &quot;fiction&quot;
+    }, 
+     locked: false
   },
 
-  cave: {
-    name: &quot;Echoing Cave&quot;,
-    desc: &quot;Cold air flows from within. The darkness swallows sound.&quot;,
-    exits: {
-      south: &quot;forest&quot;
-    },
-    locked: false
+  art: {
+    name: &quot;Making Art&quot;,
+    desc: &quot;Trying to put boundaries on the undefinable and the infinite&quot;,
+     exits: {
+      west: &quot;sisters&quot;,
+      north: &quot;truth&quot;,
+      south: &quot;collaboration&quot;
+    }, 
+     locked: false
   },
 
-  village: {
-    name: &quot;Abandoned Village&quot;,
-    desc: &quot;Empty houses line a silent road. Something feels wrong here.&quot;,
+  fiction: {
+    name: &quot;Fictionalised verisons of ourselves&quot;,
+    desc: &quot;We don&#39;t want to commit to becoming entangled with these people. So its really about a fictionalised version of us&quot;,
     exits: {
-      west: &quot;forest&quot;
-    }
-  }
+    west: &quot;power&quot;,
+    south: &quot;collaboration&quot;
+  }, 
+   locked: false
+  }, 
+  power: {
+    name: &quot;The Corrupting Influence of Power&quot;,
+    desc: &quot;Can anything ever be truly equal? How long can idealism last?&quot;,
+  exits: {
+    west: &quot;truth&quot;,
+    east: &quot;fiction&quot;,
+    south: &quot;collaboration&quot;
+  }, 
+   locked: false
+  }, 
+  collaboration: {
+    name: &quot;Collaboration&quot;,
+    desc: &quot;lorem ipsum&quot;,
+    exits: {
+    north: &quot;power&quot;,
+    west: &quot;art&quot;,
+    east: &quot;fiction&quot;,
+    south: &quot;sisters&quot;
+  }, 
+   locked: false
+  }, 
+  truth: {
+    name: &quot;Truth&quot;,
+    desc: &quot;lorem ipsum&quot;,
+    exits: {
+    east: &quot;power&quot;,
+    south: &quot;sisters&quot;,
+    west: &quot;art&quot;
+  }, 
+  locked: true
+  }, 
+  
 }&gt;&gt;</tw-passagedata><tw-passagedata pid="2" name="header" tags="nobr" position="225,100" size="100,100">&lt;header&gt;
 Head
 &lt;/header&gt;</tw-passagedata><tw-passagedata pid="3" name="footer" tags="nobr" position="350,100" size="100,100">&lt;footer&gt;
-Foot
+&lt;&lt;button &quot;Back&quot;&gt;&gt;
+    &lt;&lt;goto $prevpass&gt;&gt;
+    &lt;&lt;/button&gt;&gt;
+&lt;&lt;button &quot;Next&quot;&gt;&gt;
+    &lt;&lt;goto $nextpass&gt;&gt;
+    &lt;&lt;/button&gt;&gt;
 &lt;/footer&gt;</tw-passagedata><tw-passagedata pid="4" name="test-content" tags="nobr" position="475,100" size="100,100">&lt;&lt;timed 0.1s&gt;&gt;
  &lt;&lt;replace &quot;#mount&quot;&gt;&gt;
     &lt;&lt;type 60ms&gt;&gt;
@@ -286,6 +329,7 @@ Foot
 
 &lt;&lt;/for&gt;&gt;
 
+
 &lt;hr&gt;
 
 &lt;form&gt;
@@ -334,8 +378,9 @@ Foot
 &lt;b&gt;Commands:&lt;/b&gt;&lt;br&gt;
 &lt;&lt;link &quot;Look&quot;&gt;&gt;&lt;&lt;goto &quot;Room&quot;&gt;&gt;&lt;&lt;/link&gt;&gt; |
 &lt;&lt;link &quot;Map&quot;&gt;&gt;&lt;&lt;goto &quot;Map&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;
-&lt;/main&gt;</tw-passagedata><tw-passagedata pid="9" name="Map" tags="nobr" position="1100,100" size="100,100">&lt;main&gt;
-    &lt;h3&gt;Map&lt;/h3&gt;
+&lt;/main&gt;
+&lt;&lt;include &quot;footer&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="9" name="Map" tags="nobr" position="1100,100" size="100,100">&lt;main&gt;
+    &lt;h3&gt;Where are we?&lt;/h3&gt;
     
     You are currently in: &lt;b&gt;&lt;&lt;= $location&gt;&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;
     

@@ -24,89 +24,127 @@ SISTER
 $('#ui-bar').remove();
 $(document.head).find('#style-ui-bar').remove();
 
-setup.chooseStoryAudio = () => {
+// setup.chooseStoryAudio = () => {
 
-  const audio = document.getElementById("audioPlayer");
+//   const audio = document.getElementById("audioPlayer");
 
-  if (!audio) {
-    console.error("Audio element not found.");
-    return;
-  }
+//   if (!audio) {
+//     console.error("Audio element not found.");
+//     return;
+//   }
 
-  const data = State.variables.currentAudio;
+//   const data = State.variables.currentAudio;
 
-  if (!data) {
-    console.warn("No currentAudio set.");
-    return;
-  }
+//   if (!data) {
+//     console.warn("No currentAudio set.");
+//     return;
+//   }
 
-  // Reset audio
-  audio.pause();
-  audio.currentTime = 0;
+//   // Reset audio
+//   audio.pause();
+//   audio.currentTime = 0;
 
-  // ✅ Make this an ARRAY (even for one file)
-  const audioFiles = [
-    `assets/audio/${data.theme}/${data.audioSrc}.mp3`
-  ];
+//   // ✅ Make this an ARRAY (even for one file)
+//   const audioFiles = [
+//     `assets/audio/${data.theme}/${data.audioSrc}.mp3`
+//   ];
 
-  console.log("audioFiles", audioFiles);
+//   console.log("audioFiles", audioFiles);
 
-  let currentTrack = 0;
+//   let currentTrack = 0;
 
-  function playNext() {
-    if (currentTrack < audioFiles.length) {
-      audio.src = audioFiles[currentTrack];
-      console.log("playing audio", audio.src);
+//   function playNext() {
+//     if (currentTrack < audioFiles.length) {
+//       audio.src = audioFiles[currentTrack];
+//       console.log("playing audio", audio.src);
 
-      audio.play().catch(err => {
-        console.error("Audio play failed:", err);
-      });
+//       audio.play().catch(err => {
+//         console.error("Audio play failed:", err);
+//       });
 
-      currentTrack++;
-    }
-  }
+//       currentTrack++;
+//     }
+//   }
 
-  // ✅ Prevent stacking
-  audio.onended = playNext;
+//   // ✅ Prevent stacking
+//   audio.onended = playNext;
 
-  if (audioFiles.length > 0) {
-    playNext();
-  }
-};
+//   if (audioFiles.length > 0) {
+//     playNext();
+//   }
+// };
 
 
 
 
 :: StoryInit {"position":"100,100","size":"100,100"}
 
-<<set $location = "forest">>
+<<set $location = "sisters">>
 
 <<set $world = {
-  forest: {
-    name: "Dark Forest",
-    desc: "Trees crowd around you. Paths lead deeper into darkness.",
+  sisters: {
+    name: "Silver Sisters",
+    desc: "The strangeness of the sisters. Who were they? How can we know them better?",
     exits: {
-      north: "cave",
-      east: "village"
-    }
+      north: "truth",
+      east: "art",
+      south: "fiction"
+    }, 
+     locked: false
   },
 
-  cave: {
-    name: "Echoing Cave",
-    desc: "Cold air flows from within. The darkness swallows sound.",
-    exits: {
-      south: "forest"
-    },
-    locked: false
+  art: {
+    name: "Making Art",
+    desc: "Trying to put boundaries on the undefinable and the infinite",
+     exits: {
+      west: "sisters",
+      north: "truth",
+      south: "collaboration"
+    }, 
+     locked: false
   },
 
-  village: {
-    name: "Abandoned Village",
-    desc: "Empty houses line a silent road. Something feels wrong here.",
+  fiction: {
+    name: "Fictionalised verisons of ourselves",
+    desc: "We don't want to commit to becoming entangled with these people. So its really about a fictionalised version of us",
     exits: {
-      west: "forest"
-    }
-  }
+    west: "power",
+    south: "collaboration"
+  }, 
+   locked: false
+  }, 
+  power: {
+    name: "The Corrupting Influence of Power",
+    desc: "Can anything ever be truly equal? How long can idealism last?",
+  exits: {
+    west: "truth",
+    east: "fiction",
+    south: "collaboration"
+  }, 
+   locked: false
+  }, 
+  collaboration: {
+    name: "Collaboration",
+    desc: "lorem ipsum",
+    exits: {
+    north: "power",
+    west: "art",
+    east: "fiction",
+    south: "sisters"
+  }, 
+   locked: false
+  }, 
+  truth: {
+    name: "Truth",
+    desc: "lorem ipsum",
+    exits: {
+    east: "power",
+    south: "sisters",
+    west: "art"
+  }, 
+  locked: true
+  }, 
+  
 }>>
 
 
@@ -118,7 +156,12 @@ Head
 
 :: footer [nobr]
 <footer>
-Foot
+<<button "Back">>
+    <<goto $prevpass>>
+    <</button>>
+<<button "Next">>
+    <<goto $nextpass>>
+    <</button>>
 </footer>
 
 :: test-content [nobr]
@@ -234,6 +277,7 @@ Foot
 
 <</for>>
 
+
 <hr>
 
 <form>
@@ -283,10 +327,11 @@ Foot
 <<link "Look">><<goto "Room">><</link>> |
 <<link "Map">><<goto "Map">><</link>>
 </main>
+<<include "footer">>
 
 :: Map [nobr]
 <main>
-    <h3>Map</h3>
+    <h3>Where are we?</h3>
     
     You are currently in: <b><<= $location>></b><br><br>
     
@@ -301,3 +346,4 @@ Foot
     <br>
     <<link "Back">><<goto "Room">><</link>>
 </main>
+
