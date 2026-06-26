@@ -83,10 +83,10 @@ $(document.head).find('#style-ui-bar').remove();
 
 <<set $world = {
   sisters: {
-    name: "Silver Sisters",
-    desc: "The strangeness of the sisters. Who were they? How can we know them better?",
+    name: "Silver Sisterhood",
+    desc: "Who were they? How can we know them better?",
+        notes: ["martindale","burtonport","langridge","stbrides","matriarchy","tyndall"],
     exits: {
-      north: "truth",
       east: "art",
       south: "fiction"
     }, 
@@ -96,9 +96,9 @@ $(document.head).find('#style-ui-bar').remove();
   art: {
     name: "Making Art",
     desc: "Trying to put boundaries on the undefinable and the infinite",
+     notes: ["figs in wigs","eoghan","lauren","decisions","sprawling","making sense"],
      exits: {
       west: "sisters",
-      north: "truth",
       south: "collaboration"
     }, 
      locked: false
@@ -107,40 +107,40 @@ $(document.head).find('#style-ui-bar').remove();
   fiction: {
     name: "Fictionalised verisons of ourselves",
     desc: "We don't want to commit to becoming entangled with these people. So its really about a fictionalised version of us",
+     notes: ["pigs in wigs","figs and wigs","figs with wigs","wigs in figs","loghan","eouren"],
     exits: {
+      north: "sisters",
     west: "power",
-    south: "collaboration"
+    east: "collaboration"
   }, 
    locked: false
   }, 
   power: {
     name: "The Corrupting Influence of Power",
     desc: "Can anything ever be truly equal? How long can idealism last?",
+    notes: ["hierarchy","fear","democracy","fallacy","lies","radical"],
   exits: {
-    west: "truth",
     east: "fiction",
-    south: "collaboration"
+    south: "truth"
   }, 
    locked: false
   }, 
   collaboration: {
     name: "Collaboration",
-    desc: "lorem ipsum",
+    desc: "Can you ever really know what someone else is thinking?",
+    notes: ["yes","no","irrelavant"],
     exits: {
-    north: "power",
-    west: "art",
-    east: "fiction",
-    south: "sisters"
+    north: "art",
+    west: "fiction",
   }, 
    locked: false
   }, 
   truth: {
     name: "Truth",
-    desc: "lorem ipsum",
+    desc: "?????",
+    notes: ["the truth"],
     exits: {
-    east: "power",
-    south: "sisters",
-    west: "art"
+    north: "power",
   }, 
   locked: true
   }, 
@@ -148,9 +148,45 @@ $(document.head).find('#style-ui-bar').remove();
 }>>
 
 
+<<set $notes = {
+    martindale: {
+        title: "Miss Martindale",
+        chapter: "sisters"
+    },
+    burtonport: {
+        title: "Burtonport",
+        chapter: "sisters"
+    },
+
+    langridge: {
+        title: "Priscilla Langridge",
+        chapter: "sisters"
+    },
+
+    stbrides: {
+        title: "St Brides",
+        chapter: "sisters"
+    },
+
+    matriarchy: {
+        title: "Matriarchy",
+        chapter: "sisters"
+    },
+
+    tyndall: {
+        title: "John Tyndall",
+        chapter: "sisters"
+    }
+
+}>>
+
+<<set $basket = []>>
+
+
+
 :: header [nobr]
 <header>
-Head
+
 </header>
 
 
@@ -170,7 +206,7 @@ Head
 <<timed 0.1s>>
  <<replace "#mount">>
     <<type 60ms>>
-      <p>  Hello</p>
+      <p>You'</p>
     <</type>>
     <</replace>>
 <</timed>>
@@ -206,15 +242,396 @@ Head
 :: landing [nobr]
 <<set $prevpass to "">>
 <<set $pass to "landing">>
-<<set $nextpass to "option1">>
+<<set $nextpass to "intro1">>
 
 <<include "header">>
 <main>
-<p class="instruction">Ready when you are...</p>
 <div id="mount"></div>
-<<include "test-content">>
+<<button "start">>
+  <<goto $nextpass>>
+  <</button>>
 </main>
 <<include "footer">>
+
+:: intro1 [nobr]
+<<set $prevpass to "">>
+<<set $pass to "intro1">>
+<<set $nextpass to "intro2">>
+
+<<include "header">>
+<main>
+<div id="mount"></div>
+<<include "intro1-content">>
+</main>
+<<include "footer">>
+
+:: intro1-content [nobr]
+
+<<timed 0.1s>>
+ <<append "#mount">>
+    <<type 60ms>>
+        <p>For the last 6 months you've been working on creating a show</p>
+    <</type>>
+    <</append>>
+<</timed>>
+
+<<timed 3s>>
+ <<append "#mount">>
+    <<type 60ms>>
+        <p>A show about a group of women who liked to treat life like a game</p>
+    <</type>>
+    <</append>>
+<</timed>>
+
+
+<<timed 6s>>
+ <<append "#mount">>
+    <<type 60ms>>
+       <p>
+         <<button "Next">>
+         <<goto $nextpass>>
+         <</button>>
+       </p>
+    <</type>>
+    <</append>>
+<</timed>>
+
+:: intro2 [nobr]
+<<set $prevpass to "intro1">>
+<<set $pass to "intro2">>
+<<set $nextpass to "intro3">>
+
+<<include "header">>
+<main>
+<div id="mount"></div>
+<<include "intro2-content">>
+</main>
+<<include "footer">>
+
+:: intro2-content [nobr]
+
+<<timed 0.1s>>
+<<replace "#mount">>
+<<type 60ms>>
+<p>There's a lot of information</p>
+<</type>>
+<</replace>>
+<</timed>>
+
+<<timed 3s>>
+<<append "#mount">>
+<<type 60ms>>
+<p>to discover.</p>
+<</type>>
+<</append>>
+<</timed>>
+
+<<timed 6s>>
+<<append "#mount">>
+<<type 60ms>>
+<p>
+<<button "Next">>
+<<goto $nextpass>>
+<</button>>
+</p>
+<</type>>
+<</append>>
+<</timed>>
+
+
+:: intro3 [nobr]
+<<set $prevpass to "intro2">>
+<<set $pass to "intro3">>
+<<set $nextpass to "intro3a">>
+
+<<include "header">>
+<main>
+<div id="mount"></div>
+<<include "intro3-content">>
+</main>
+<<include "footer">>
+
+:: intro3-content [nobr]
+
+<<timed 0.1s>>
+<<replace "#mount">>
+<<type 60ms>>
+<p>You see similarities between the way they live their lives</p>
+<</type>>
+<</replace>>
+<</timed>>
+
+<<timed 3s>>
+<<append "#mount">>
+<<type 60ms>>
+<p>and the way you live yours.</p>
+<</type>>
+<</append>>
+<</timed>>
+
+<<timed 5s>>
+<<append "#mount">>
+<<type 60ms>>
+<p>
+<<button "Next">>
+<<goto $nextpass>>
+<</button>>
+</p>
+<</type>>
+<</append>>
+<</timed>>
+
+
+:: intro3a [nobr]
+<<set $prevpass to "intro3">>
+<<set $pass to "intro3a">>
+<<set $nextpass to "intro4">>
+
+<<include "header">>
+<main>
+<div id="mount"></div>
+<<include "intro4-content">>
+</main>
+<<include "footer">>
+
+
+:: intro3a-content [nobr]
+<<timed 6s>>
+<<append "#mount">>
+<<type 60ms>>
+<p>There are things about them that intrigue you</p>
+<</type>>
+<</append>>
+<</timed>>
+
+<<timed 9s>>
+<<append "#mount">>
+<<type 60ms>>
+<p>surprise you</p>
+<</type>>
+<</append>>
+<</timed>>
+
+<<timed 11s>>
+<<append "#mount">>
+<<type 60ms>>
+<p>make you laugh</p>
+<</type>>
+<</append>>
+<</timed>>
+
+<<timed 14s>>
+<<append "#mount">>
+<<type 60ms>>
+<p>But there are also things about them that disgust you.</p>
+<</type>>
+<</append>>
+<</timed>>
+
+<<timed 18s>>
+<<append "#mount">>
+<<type 60ms>>
+<p>things that you don't want to be wrapped up in.</p>
+<</type>>
+<</append>>
+<</timed>>
+
+<<timed 21s>>
+<<append "#mount">>
+<<type 60ms>>
+<p>
+<<button "Next">>
+<<goto $nextpass>>
+<</button>>
+</p>
+<</type>>
+<</append>>
+<</timed>>
+
+
+:: intro4 [nobr]
+<<set $prevpass to "intro3a">>
+<<set $pass to "intro4">>
+<<set $nextpass to "intro5">>
+
+<<include "header">>
+<main>
+<div id="mount"></div>
+<<include "intro4-content">>
+</main>
+<<include "footer">>
+
+:: intro4-content [nobr]
+
+<<timed 0.1s>>
+<<replace "#mount">>
+<<type 60ms>>
+<p>The more you learn...</p>
+<</type>>
+<</replace>>
+<</timed>>
+
+<<timed 3s>>
+<<append "#mount">>
+<<type 60ms>>
+<p>the stranger they become.</p>
+<</type>>
+<</append>>
+<</timed>>
+
+<<timed 7s>>
+<<append "#mount">>
+<<type 60ms>>
+<p>Each time you think you've worked them out...</p>
+<</type>>
+<</append>>
+<</timed>>
+
+<<timed 11s>>
+<<append "#mount">>
+<<type 60ms>>
+<p>they slip away</p>
+<</type>>
+<</append>>
+<</timed>>
+
+<<timed 14s>>
+<<append "#mount">>
+<<type 60ms>>
+<p>
+<<button "Next">>
+<<goto $nextpass>>
+<</button>>
+</p>
+<</type>>
+<</append>>
+<</timed>>
+
+
+:: intro5 [nobr]
+<<set $prevpass to "intro4">>
+<<set $pass to "intro5">>
+<<set $nextpass to "notebook-intro">>
+<<include "header">>
+<main>
+<div id="mount"></div>
+<<include "intro5-content">>
+</main>
+<<include "footer">>
+
+:: intro5-content [nobr]
+
+<<timed 0.1s>>
+<<replace "#mount">>
+<<type 60ms>>
+<p>But maybe this show isn't about them anyway.</p>
+<</type>>
+<</replace>>
+<</timed>>
+
+<<timed 4s>>
+<<append "#mount">>
+<<type 60ms>>
+<p>What is it about?</p>
+<</type>>
+<</append>>
+<</timed>>
+
+<<timed 8s>>
+<<append "#mount">>
+<<type 60ms>>
+<p>Each time you think you've worked it out...</p>
+<</type>>
+<</append>>
+<</timed>>
+
+<<timed 12s>>
+<<append "#mount">>
+<<type 60ms>>
+<p>it slips away...</p>
+<</type>>
+<</append>>
+<</timed>>
+
+<<timed 16s>>
+<<append "#mount">>
+<<type 60ms>>
+<p>
+<<button "Begin">>
+<<goto "notebook-intro">>
+<</button>>
+</p>
+<</type>>
+<</append>>
+<</timed>>
+
+:: notebook-intro [nobr]
+<<set $prevpass to "intro5">>
+<<set $pass to "notebook-intro">>
+<<set $nextpass to "Notebook">>
+<<addclass "body" "lightblue">>
+<<include "header">>
+<main>
+
+<div id="mount"></div>
+<<include "notebook-intro-content">>
+</main>
+<<include "footer">>
+
+:: notebook-intro-content [nobr]
+
+<<timed 0.1s>>
+<<append "#mount">>
+<<type 60ms>>
+<p>Up with the jolly old lark. Sun hardly peeping over the horizon. Not your usual habit, I hasten to add, but today you have a mystery to solve.</p>
+<</type>>
+<</append>>
+<</timed>>
+
+<<timed 6s>>
+<<append "#mount">>
+<<type 60ms>>
+<p>You've woken up refreshed</p>
+<</type>>
+<</append>>
+<</timed>>
+
+<<timed 8s>>
+<<append "#mount">>
+<<type 60ms>>
+<p>and ready for a challenge.</p>
+<</type>>
+<</append>>
+<</timed>>
+
+<<timed 10s>>
+<<append "#mount">>
+<<type 60ms>>
+<p>Today is the day, you can feel it.</p>
+<</type>>
+<</append>>
+<</timed>>
+
+<<timed 12s>>
+<<append "#mount">>
+<<type 60ms>>
+<p>Its time to work out what the hell this show is about.</p>
+<</type>>
+<</append>>
+<</timed>>
+
+<<timed 16s>>
+<<append "#mount">>
+<<type 60ms>>
+<p>
+<<button "Go">>
+<<goto "Notebook">>
+<</button>>
+</p>
+<</type>>
+<</append>>
+<</timed>>
+
 
 
 :: option1 [nobr]
@@ -230,6 +647,8 @@ Head
 </main>
 <<include "footer">>
 
+
+
 :: option2 [nobr]
 <<set $prevpass to "option1">>
 <<set $pass to "option2">>
@@ -243,7 +662,33 @@ Head
 </main>
 <<include "footer">>
 
-:: Room [nobr]
+
+
+:: notebook-header [nobr]
+<header>
+MY NOTEBOOK
+</header>
+
+
+:: notebook-footer [nobr]
+<footer>
+<<button "Back">>
+    <<goto $prevpass>>
+    <</button>>
+
+<div class="command-container">
+  <<link "Go to notebook">><<goto "Notebook">><</link>> |
+  <<link "Contents page">><<goto "Map">><</link>> |
+   <<link "My basket">><<goto "Basket">><</link>>
+</div>
+
+<<button "Next">>
+    <<goto $nextpass>>
+    <</button>>
+</footer>
+
+:: Notebook [nobr]
+<<set $t to Engine.restart()>>
 <<if $world.hasOwnProperty($location)>>
   <<set _room = $world[$location]>>
 <<else>>
@@ -253,81 +698,89 @@ Head
     exits: {}
   }>>
 <</if>>
-
-<main>
+<<include "notebook-header">>
+<main class="notebook">
 <h2><<= _room.name>></h2>
 <p><<= _room.desc>></p>
+<<set _chapterPassage = "chapter-" + $location>> 
 
-<hr>
+<<if Story.has(_chapterPassage)>> <<button "View Notes">> <<goto _chapterPassage>> <</button>> <</if>>
 
-<b>Exits:</b><br>
+<div>
+<h3>Move around in your notebook</h3>
+<b>Exits:</b>
 
-<<for _dir, _dest range _room.exits>>
-
-  <<set _target = $world[_dest]>>
-
-  <<if _target.locked>>
-    <<print _dir>> — (locked)<br>
-  <<else>>
-    <<link _dir>>
-      <<set $location = _dest>>
-      <<goto "Room">>
-    <</link>><br>
-  <</if>>
-
-<</for>>
-
-
-<hr>
-
-<form>
-  <<textbox "$command" "command">>
-</form>
-
-<<button "Enter">>
-  <<set _cmd = $command.toLowerCase()>>
-
-  <<if _cmd is "look">>
-    <<goto "Room">>
-
-  <<elseif _cmd is "north" or _cmd is "n">>
-    <<set _dir = "north">>
-    <<if $world[$location].exits[_dir]>>
-      <<set $location = $world[$location].exits[_dir]>>
+<ul class="exits-container">
+  <<for _dir, _dest range _room.exits>>
+  
+    <<set _target = $world[_dest]>>
+  
+    <<if _target.locked>>
+      <<print _dir>> — (locked)<br>
+    <<else>>
+      <li class="exits-item">
+      <<link _dir>>
+        <<set $location = _dest>>
+        <<goto "Notebook">>
+      <</link>>
+      </li>
     <</if>>
-    <<goto "Room">>
+  
+  <</for>>
+</ul>
 
-  <<elseif _cmd is "south" or _cmd is "s">>
-    <<set _dir = "south">>
-    <<if $world[$location].exits[_dir]>>
-      <<set $location = $world[$location].exits[_dir]>>
+<span>Travel to a different page</span>
+<div class="command-input-container">
+  
+  <form>
+    <<textbox "$command" "direction">>
+  </form>
+  
+  <<button "Enter">>
+    <<set _cmd = $command.toLowerCase()>>
+  
+    <<if _cmd is "look">>
+      <<goto "Notebook">>
+  
+    <<elseif _cmd is "north" or _cmd is "n">>
+      <<set _dir = "north">>
+      <<if $world[$location].exits[_dir]>>
+        <<set $location = $world[$location].exits[_dir]>>
+      <</if>>
+      <<goto "Notebook">>
+  
+    <<elseif _cmd is "south" or _cmd is "s">>
+      <<set _dir = "south">>
+      <<if $world[$location].exits[_dir]>>
+        <<set $location = $world[$location].exits[_dir]>>
+      <</if>>
+      <<goto "Notebook">>
+  
+    <<elseif _cmd is "east" or _cmd is "e">>
+      <<set _dir = "east">>
+      <<if $world[$location].exits[_dir]>>
+        <<set $location = $world[$location].exits[_dir]>>
+      <</if>>
+      <<goto "Notebook">>
+  
+    <<elseif _cmd is "west" or _cmd is "w">>
+      <<set _dir = "west">>
+      <<if $world[$location].exits[_dir]>>
+        <<set $location = $world[$location].exits[_dir]>>
+      <</if>>
+      <<goto "Notebook">>
+  
+    <<else>>
+      You can't do that.
     <</if>>
-    <<goto "Room">>
+  <</button>>
+</div>
+</div>
 
-  <<elseif _cmd is "east" or _cmd is "e">>
-    <<set _dir = "east">>
-    <<if $world[$location].exits[_dir]>>
-      <<set $location = $world[$location].exits[_dir]>>
-    <</if>>
-    <<goto "Room">>
-
-  <<elseif _cmd is "west" or _cmd is "w">>
-    <<set _dir = "west">>
-    <<if $world[$location].exits[_dir]>>
-      <<set $location = $world[$location].exits[_dir]>>
-    <</if>>
-    <<goto "Room">>
-
-  <<else>>
-    You can't do that.
-  <</if>>
-<</button>>
-
-<b>Commands:</b><br>
-<<link "Look">><<goto "Room">><</link>> |
-<<link "Map">><<goto "Map">><</link>>
 </main>
-<<include "footer">>
+<<include "notebook-footer">>
+
+
 
 :: Map [nobr]
 <main>
@@ -344,6 +797,187 @@ Head
     <</for>>
     
     <br>
-    <<link "Back">><<goto "Room">><</link>>
+    <<link "Back">><<goto "Notebook">><</link>>
 </main>
+
+
+
+:: Basket [nobr]
+
+<<include "notebook-header">>
+
+<main class="basket">
+
+<h2>Your Basket</h2>
+
+<<if $basket.length is 0>>
+
+    <p>Your basket is empty.</p>
+
+<<else>>
+
+    <ul>
+
+    <<for _note range $basket>>
+
+        <li>
+
+            <<= _note>>
+
+            <<link "Remove">>
+                <<run $basket.delete($basket.indexOf(_note))>>
+                <<goto "Basket">>
+            <</link>>
+
+        </li>
+
+    <</for>>
+
+    </ul>
+
+<</if>>
+
+<hr>
+
+<<link "Back to Notebook">>
+    <<goto "Notebook">>
+<</link>>
+
+</main>
+
+
+
+
+
+:: chapter-template [nobr]
+
+<<set _chapter = $world[$currentChapter]>>
+
+<main>
+<p class="instruction">Ready when you are...</p>
+<div id="mount"></div>
+
+<h2><<= _chapter.name>></h2>
+<p><<= _chapter.desc>></p>
+
+<hr>
+
+<<set _notes = _chapter.notes>>
+
+<ul class="notes">
+
+<<for _note range _notes>>
+
+    <<capture _note>>
+
+    <li>
+
+        _note
+        <<if $basket.includes(_note)>>
+
+            <span class="selected">(In basket)</span>
+
+            <<button "Remove">>
+                <<run $basket.delete(_note)>>
+                <<goto $pass>>
+            <</button>>
+
+        <<else>>
+
+            <<button "Add">>
+                <<if !$basket.includes(_note)>>
+                    <<run $basket.push(_note)>>
+                <</if>>
+                <<goto $pass>>
+            <</button>>
+
+        <</if>>
+
+    </li>
+
+    <</capture>>
+
+<</for>>
+
+</ul>
+
+<div id="basket-count">
+    Items: <<= $basket.length>>
+</div>
+
+<<link "View Basket">>
+    <<goto "Basket">>
+<</link>>
+
+|
+<<link "Back to Notebook">>
+    <<goto "Notebook">>
+<</link>>
+
+</main>
+
+
+:: chapter-sisters [nobr]
+<<set $pass to "Room">>
+<<set $pass to "chapter-sisters">>
+<<addclass "body" "lightblue">>
+
+<<set $location = "sisters">>
+<<set $currentChapter = "sisters">>
+
+<<include "chapter-template">>
+
+:: chapter-art [nobr]
+<<set $pass to "Room">>
+<<set $pass to "chapter-art">>
+<<addclass "body" "lightblue">>
+
+<<set $location = "art">>
+<<set $currentChapter = "art">>
+
+<<include "chapter-template">>
+
+
+:: chapter-fiction [nobr]
+<<set $pass to "Room">>
+<<set $pass to "chapter-fiction">>
+<<addclass "body" "lightblue">>
+
+<<set $location = "fiction">>
+<<set $currentChapter = "fiction">>
+
+<<include "chapter-template">>
+
+
+:: chapter-power [nobr]
+<<set $pass to "Room">>
+<<set $pass to "chapter-power">>
+<<addclass "body" "lightblue">>
+
+<<set $location = "power">>
+<<set $currentChapter = "power">>
+
+<<include "chapter-template">>
+
+
+:: chapter-collaboration [nobr]
+<<set $pass to "Room">>
+<<set $pass to "chapter-collaboration">>
+<<addclass "body" "lightblue">>
+
+<<set $location = "collaboration">>
+<<set $currentChapter = "collaboration">>
+
+<<include "chapter-template">>
+
+
+:: chapter-truth [nobr]
+<<set $pass to "Room">>
+<<set $pass to "chapter-truth">>
+<<addclass "body" "lightblue">>
+
+<<set $location = "truth">>
+<<set $currentChapter = "truth">>
+
+<<include "chapter-template">>
 

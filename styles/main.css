@@ -209,3 +209,33 @@ input[type="submit"] {
   .hide {
     display: none;
   }
+
+
+  /* NOTEBOOK  */
+
+  main.notebook{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: left;
+  }
+
+  .exits-container{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: left;
+  }
+
+  .command-input-container{
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: left;
+    gap: 3rem
+  }
+
+  .command-input-container > form > input{
+    border: 2px solid white;
+    border-radius: 0.5px;
+  }
